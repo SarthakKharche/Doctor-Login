@@ -12,13 +12,16 @@ app.secret_key = 'your-secret-key-here'  # Required for flash messages and sessi
 # Create uploads folder if it doesn't exist
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-# Update these with your credentials
+import os
+
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Sarthak@123",
-    database="cattle_db"
+    host=os.environ.get("DB_HOST"),
+    user=os.environ.get("DB_USER"),
+    password=os.environ.get("DB_PASSWORD"),
+    database=os.environ.get("DB_NAME"),
+    port=int(os.environ.get("DB_PORT", 3306))
 )
+
 
 cursor = db.cursor()
 
